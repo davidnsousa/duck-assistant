@@ -8,6 +8,7 @@ import gi
 import dbus
 import dbus.service
 import dbus.mainloop.glib
+import os
 gi.require_version('Gtk', '3.0')
 gi.require_version('WebKit2', '4.0')
 from gi.repository import Gtk, WebKit2, GLib
@@ -186,11 +187,21 @@ def build_main():
     with open("script.html", 'r', encoding='utf-8') as file:
         script = file.read()
 
-    with open("history.html", 'r', encoding='utf-8') as file:
-        history = file.read()
-
-    main = style + history + script
-
+    if os.path.isfile("history.html"):
+        with open("history.html", 'r', encoding='utf-8') as file:
+            history = file.read()
+            main = style + history + script
+    else:
+        with open("README.md", 'r', encoding='utf-8') as file:
+            home = file.read()
+            home =  home[home.find('## Usage'):]
+            home = markdown.markdown(home, extensions=['fenced_code'])
+            home = f'''
+            <div class="box">
+                {home}
+            </div>
+            '''
+            main = style + home + script
     return main
 
 if __name__ == "__main__":
