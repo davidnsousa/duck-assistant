@@ -8,6 +8,8 @@ Please note that this is not a chat. In my use cases, when interacting with an A
 
 ## Setup Duck Assistant
 
+Make sure `WebKit2` is installed on your system.
+
 Assuming you are at ~
 
 ```bash
@@ -15,7 +17,7 @@ git clone https://github.com/davidnsousa/duck-assistant
 cd duck-assistant
 python -m venv .
 source bin/activate
-pip install -r requiements.txt
+pip install -r requirements.txt
 ```
 
 ## Usage
@@ -31,15 +33,17 @@ Models available are `"gpt"`, `"llama"`, `"calude"`, `"mistral"`
 
 ### Cool way to use it
 
-Often I use AI, for instance, for revising, elaborating, or explaing pieces of text or code. So I created a little bash script which pipes mouse text selections to my AI prompts automatically.
+Often I use AI for revising, elaborating, or explaing pieces of text or code. So I created a little bash script which pipes mouse text selections to my AI prompts automatically.
 
 You need to have `dmenu` and `xclip` installed on your system for the following to work.
 
 ```bash
+cd ~/duck-assistant
 selection=$(xclip -o -selection primary)
 prompt=$(echo -e "revise\nanswer\nelaborate\nexplain\ntranslate" | dmenu)
-source ~/duck-assistant/bin/activate
-python ~/duck-assistant/duck-assistant.py --instance "gpt" --prompt "$prompt : $selection"
+source bin/activate
+python duck-assistant.py --instance "gpt" --prompt "$prompt : $selection"
+xclip -selection primary /dev/null
 ```
 
 This also allows for custom prompts and can be used without requiring mouse selections.
