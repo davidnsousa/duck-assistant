@@ -4,13 +4,11 @@ Duck assistant integrates [DuckDuckGo Chat API Python Client](https://github.com
 
 The assistant features a web-based interface built with GTK and WebKit2. It can be run with prompts via command-line arguments, and it maintains a history of interactions in an HTML file. The HTML appearance and functionality can be configured and edited using the style.html and script.html files. When the window is open, it automatically refreshes and activates in response to a new prompt.
 
-Please note that this is not a chat. In my use cases, when interacting with an AI, the conversation history can clutter new responses with irrelevant content and misunderstandingsl, so I prefer to handle each request independently.
+Please note that this is not a chat. In my experience with AI, the conversation history can pollute new responses with irrelevant content and misunderstandings, so I prefer to handle each request independently.
 
 ## Setup Duck Assistant
 
 Make sure `WebKit2` is installed on your system.
-
-Assuming you are at ~
 
 ```bash
 git clone https://github.com/davidnsousa/duck-assistant
@@ -22,14 +20,21 @@ pip install -r requirements.txt
 
 ## Usage
 
-Assuming you have setup Duck Assistant at ~, use the following command:
+Navigate to the `duck-assistant` directory and run:
 
 ```bash
-source ~/duck-assistant/bin/activate
-python ~/duck-assistant/duck-assistant.py --instance <model> --prompt <text>
+source bin/activate
+python duck-assistant.py --instance <model> --prompt <text>
 ```
 
-Models available are `"gpt"`, `"llama"`, `"calude"`, `"mistral"`
+Where `<model>` can be any of the following `"gpt"`, `"llama"`, `"calude"`, `"mistral"`.
+
+To view the history of previous requests run:
+
+```bash
+source bin/activate
+python duck-assistant.py
+```
 
 ### Cool way to use it
 
