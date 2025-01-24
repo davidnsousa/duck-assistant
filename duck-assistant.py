@@ -212,7 +212,7 @@ if __name__ == "__main__":
         current_time = datetime.now().strftime("%A, %B %d, %Y. %H:%M")
         body = f'''
         <div class="box">
-            <h1>{prompt}</h1>
+            <h1>{prompt[:prompt.find(" : ")]}</h1>
             <p>{current_time}</p>
             <br>
             {response}
