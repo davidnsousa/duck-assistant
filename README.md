@@ -2,9 +2,12 @@
 
 Duck assistant integrates [DuckDuckGo Chat API Python Client](https://github.com/tolgakurtuluss/duckduckgo-ai-chat-py) to fetch responses from GPT-4O-Mini, Claude-3-Haiku, Meta-Llama, and Mixtral.
 
-The assistant features a web-based interface built with GTK and WebKit2. It can be run with prompts via command-line arguments, and it maintains a history of interactions in an HTML file. The HTML appearance and functionality can be configured and edited using the style.html and script.html files. When the window is open, it automatically refreshes and activates in response to a new prompt.
+The assistant features a web-based interface built with GTK and WebKit2. It can be run with prompts via command-line arguments, and it maintains a history of interactions in an HTML file. The HTML appearance and functionality can be configured and edited using the style.html and script.html files. When the window is open, it automatically refreshes and activates in response to a new prompt. A toolbar on the right allows you to navigate and search through previous interactions.
 
 Please note that this is not a chat. In my experience with AI, conversation history can sometimes introduce irrelevant content and misunderstandings into new responses, so I prefer to handle each independently.
+
+![example 1](https://i.imgur.com/aPEpodx.png)
+![example 1](https://i.imgur.com/n0y62rh.png)
 
 ## Setup Duck Assistant
 
