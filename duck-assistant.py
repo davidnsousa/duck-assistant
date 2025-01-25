@@ -215,7 +215,10 @@ if __name__ == "__main__":
     if not any(vars(args).values()):
         main = build_main()
     else:
-        instance = choose_model(args.instance)
+        if not args.instance:
+            instance = choose_model("gpt")
+        else:
+            instance = choose_model(args.instance)
         prompt = args.prompt
         chat_fetcher = ChatFetcher(instance)
         response = asyncio.run(chat_fetcher.fetch_response(prompt))
@@ -223,8 +226,12 @@ if __name__ == "__main__":
         current_time = datetime.now().strftime("%A, %B %d, %Y. %H:%M")
         body = f'''
         <div class="box">
+            <p style="color: gray; font-size: small; display: flex; justify-content: space-between; width: 100%;">
+                <span style="text-align: left;">{current_time}</span>
+                <span style="text-align: right;">{instance}</span>
+            </p>
+            <br>
             <h1>{prompt[:prompt.find(" : ")]}</h1>
-            <p>{current_time}</p>
             <br>
             {response}
         </div>
