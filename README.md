@@ -6,9 +6,6 @@ The assistant features a web-based interface built with GTK and WebKit2. It can 
 
 Please note that this is not a chat. In my experience with AI, conversation history can sometimes introduce irrelevant content and misunderstandings into new responses, so I prefer to handle each independently.
 
-![example 1](https://i.imgur.com/aPEpodx.png)
-![example 1](https://i.imgur.com/n0y62rh.png)
-
 ## Setup Duck Assistant
 
 Make sure `WebKit2` is installed on your system.
