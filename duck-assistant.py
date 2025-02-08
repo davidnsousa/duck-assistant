@@ -19,20 +19,13 @@ STATUS_URL = "https://duckduckgo.com/duckchat/v1/status"
 CHAT_URL = "https://duckduckgo.com/duckchat/v1/chat"
 STATUS_HEADERS = {"x-vqd-accept": "1"}
 
-class Model:
-    O3_MINI = "o3-mini"
-    GPT_4O_MINI = "gpt-4o-mini"
-    CLAUDE_3_HAIKU = "claude-3-haiku-20240307"
-    META_LLAMA = "meta-llama/Llama-3.3-70B-Instruct-Turbo"
-    MISTRALAI = "mistralai/Mixtral-8x7B-Instruct-v0.1"
-
 def choose_model(input_string):
     model_mapping = {
-        "o3": Model.O3_MINI,
-        "gpt": Model.GPT_4O_MINI,
-        "claude": Model.CLAUDE_3_HAIKU,
-        "llama": Model.META_LLAMA,
-        "mistral": Model.MISTRALAI
+        "o3": "o3-mini",
+        "gpt": "gpt-4o-mini",
+        "claude": "claude-3-haiku-20240307",
+        "llama": "claude-3-haiku-20240307",
+        "mistral": "mistralai/Mixtral-8x7B-Instruct-v0.1"
     }
     input_string = input_string.lower()
     return model_mapping.get(input_string, "Model not found")
@@ -123,7 +116,7 @@ class CreateWebView:
         self.window.add(self.webview)
 
     def refresh(self,content):
-        self.webview.load_html(content)
+        self.webview.load_html(content, f'''file://{os.getcwd()}/''')
         self.window.present() 
 
     def is_active(self):
@@ -154,16 +147,15 @@ class ChatFetcher:
         return responseHTML
 
 def build_main():
-    with open("style.html", 'r', encoding='utf-8') as file:
-        style = file.read()
-
-    with open("script.html", 'r', encoding='utf-8') as file:
-        script = file.read()
+    with open("skel.html", 'r', encoding='utf-8') as file:
+        skel = file.read()
+        head = skel[:skel.find("HISTORY")]
+        foot = skel[skel.find("HISTORY") + len("HISTORY"):]
 
     if os.path.isfile("history.html"):
         with open("history.html", 'r', encoding='utf-8') as file:
             history = file.read()
-            main = style + history + script
+            main = head + history + foot
     else:
         with open("README.md", 'r', encoding='utf-8') as file:
             home = file.read()
@@ -174,7 +166,7 @@ def build_main():
                 {home}
             </div>
             '''
-            main = style + home + script
+            main = head + home + foot
     return main
 
 if __name__ == "__main__":
@@ -205,7 +197,6 @@ if __name__ == "__main__":
             </p>
             <br>
             <h1>{prompt[:prompt.find(" : ")]}</h1>
-            <br>
             {response}
         </div>
         '''

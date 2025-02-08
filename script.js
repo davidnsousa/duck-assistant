@@ -1,11 +1,3 @@
-<div class="scroll-top" id="scrollTop"><i class="fas fa-angles-up"></i></div>
-<div class="scroll-to-bottom" id="scrollToBottom"><i class="fas fa-angles-down"></i></div>
-<div class="scroll-step-up" id="scrollStepUp" onclick="scrollToSection(-1)"><i class="fas fa-angle-up"></i></div>
-<div class="scroll-step-down" id="scrollStepDown" onclick="scrollToSection(1)"><i class="fas fa-angle-down"></i></div>
-<div class="section-number" id="sectionNumber" onclick="scrollToCurrentSection()"></div>
-<div class="open-search" id="openSearch" onclick="opensearch()"><i class="fas fa-magnifying-glass"></i></div>
-<input type="text" class="search-box" id="searchInput" placeholder="Search...">
-<script>
 var sections = document.querySelectorAll('div.box');
 const sectionNumber = document.getElementById('sectionNumber');
 var currentSection = sections.length - 1;
@@ -136,8 +128,3 @@ function opensearch() {
 
     }
 }
-
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-<script>hljs.highlightAll();</script>
-<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
