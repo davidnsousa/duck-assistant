@@ -70,9 +70,11 @@ You need to have `dmenu` and `xclip` installed on your system for the following 
 cd ~/duck-assistant
 selection=$(xclip -o -selection primary)
 prompt=$(echo -e "revise\nanswer\nelaborate\nexplain\ntranslate" | dmenu)
-source bin/activate
-python duck-assistant.py --instance "gpt" --prompt "$prompt : $selection" &
-xclip -selection primary /dev/null
+if [[ -n "$prompt" ]]; then
+    source bin/activate
+    python duck-assistant.py --instance "gpt" --prompt "$prompt : $selection" &
+    xclip -selection primary /dev/null
+fi
 ```
 
 This also allows for custom prompts and can be used without requiring mouse selections.
