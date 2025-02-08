@@ -20,13 +20,15 @@ CHAT_URL = "https://duckduckgo.com/duckchat/v1/chat"
 STATUS_HEADERS = {"x-vqd-accept": "1"}
 
 class Model:
+    O3_MINI = "o3-mini"
     GPT_4O_MINI = "gpt-4o-mini"
     CLAUDE_3_HAIKU = "claude-3-haiku-20240307"
-    META_LLAMA = "meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo"
+    META_LLAMA = "meta-llama/Llama-3.3-70B-Instruct-Turbo"
     MISTRALAI = "mistralai/Mixtral-8x7B-Instruct-v0.1"
 
 def choose_model(input_string):
     model_mapping = {
+        "o3": Model.O3_MINI,
         "gpt": Model.GPT_4O_MINI,
         "claude": Model.CLAUDE_3_HAIKU,
         "llama": Model.META_LLAMA,
@@ -65,35 +67,6 @@ class Chat:
         self.new_vqd = message.headers.get("x-vqd-4")
         self.messages.append({"content": full_message, "role": "assistant"})
         return full_message
-
-    async def fetch_stream(self, content: str):
-        self.messages.append({"content": content, "role": "user"})
-        payload = {
-            "model": self.model,
-            "messages": self.messages,
-        }
-        async with httpx.AsyncClient() as client:
-            response = await client.post(
-                CHAT_URL,
-                headers={"x-vqd-4": self.new_vqd, "Content-Type": "application/json"},
-                json=payload
-            )
-            if not response.is_success:
-                raise Exception(f"{response.status_code}: Failed to send message. {response.text}")
-
-            # Now read the response as a stream
-            async for line in response.aiter_lines():
-                if line:
-                    line = line[len("data: "):].strip()
-                    if line == "[DONE]":
-                        break
-                    try:
-                        json_data = json.loads(line)
-                        if "message" in json_data:
-                            yield json_data["message"]  # Yield each message as it comes
-                    except json.JSONDecodeError:
-                        print(f"Skipping invalid JSON line: {line}")
-
 
     async def stream_events(self, message: httpx.Response):
         full_message = ""
@@ -216,7 +189,7 @@ if __name__ == "__main__":
         main = build_main()
     else:
         if not args.instance:
-            instance = choose_model("gpt")
+            instance = choose_model("o3")
         else:
             instance = choose_model(args.instance)
         prompt = args.prompt

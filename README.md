@@ -1,6 +1,6 @@
 # Duck assistant
 
-Duck assistant integrates [DuckDuckGo Chat API Python Client](https://github.com/tolgakurtuluss/duckduckgo-ai-chat-py) to fetch responses from GPT-4O-Mini, Claude-3-Haiku, Meta-Llama, and Mixtral.
+Duck assistant is based on [DuckDuckGo Chat API Python Client](https://github.com/tolgakurtuluss/duckduckgo-ai-chat-py) to fetch responses from O3-Mini, GPT-4O-Mini, Claude-3-Haiku, Meta-Llama, and Mixtral.
 
 The assistant features a web-based interface built with GTK and WebKit2. It can be run with prompts via command-line arguments, and it maintains a history of interactions in an HTML file. The HTML appearance and functionality can be configured and edited using the style.html and script.html files. When the window is open, it automatically refreshes and activates in response to a new prompt. A toolbar on the right allows you to navigate and search through previous interactions.
 
@@ -38,7 +38,7 @@ Prompting:
 python duck-assistant.py --instance <model> --prompt <text>
 ```
 
-Where `<model>` can be any of the following `"gpt"`, `"llama"`, `"calude"`, `"mistral"`. Default is `"gpt"`.
+Where `<model>` can be any of the following `"o3"`, `"gpt"`, `"llama"`, `"calude"`, `"mistral"`. Default is `"gpt"`.
 
 To clear all previous interactions simply delete the `history.html` file:
 
@@ -48,7 +48,7 @@ rm history.html
 
 ### Examples
 
-Using the default `"gpt"`model:
+Using the default `"gpt"` model:
 
 ```bash
 python duck-assistant.py --prompt "Ohm's Law"
